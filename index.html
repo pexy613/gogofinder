@@ -9,7 +9,7 @@
 <title>Gogo Tracker — HyperGO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#ffffff;
@@ -17,6 +17,7 @@
     --muted:#6b7480;
     --line:#e3e6ea;
     --signal:#ff2020;
+    --brandpurple:#6d28d9;
     --vh:100vh;
   }
   *{box-sizing:border-box}
@@ -24,58 +25,62 @@
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-family:Inter,"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;
     font-weight:600;
     -webkit-font-smoothing:antialiased;
     -webkit-text-size-adjust:100%;
     -webkit-tap-highlight-color:transparent;
     overscroll-behavior:none;
   }
-  .shell{
-    display:grid;
-    grid-template-columns:minmax(320px,28rem) 1fr;
-    height:var(--vh);
-  }
+  .shell{display:grid;grid-template-columns:minmax(320px,28rem) 1fr;height:var(--vh)}
   .panel{
-    padding:2.5rem 2.25rem calc(2.5rem + env(safe-area-inset-bottom));
-    padding-left:calc(2.25rem + env(safe-area-inset-left));
-    border-right:1px solid var(--line);
-    display:flex;flex-direction:column;gap:1.8rem;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior:contain;
+    padding:2.25rem 2rem calc(2.25rem + env(safe-area-inset-bottom));
+    border-inline-end:1px solid var(--line);
+    display:flex;flex-direction:column;gap:1.6rem;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   }
+  .langs{display:flex;gap:.35rem;margin-bottom:1rem}
+  .langs button{
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    font-family:inherit;font-size:.78rem;font-weight:700;
+    padding:.35rem .7rem;border-radius:.45rem;cursor:pointer;
+  }
+  .langs button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .langs button:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
   .brand{margin:0;font-size:.8rem;font-weight:700;letter-spacing:.06em;color:var(--muted)}
-  h1{font-size:clamp(1.85rem,3.2vw,2.7rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:.55rem 0 0}
-  .lede{margin:.85rem 0 0;max-width:34ch;color:var(--muted);font-weight:400;line-height:1.6}
-  .position{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.3rem 0}
-  .place{display:flex;align-items:center;gap:.7rem;font-size:1.45rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+  h1{font-size:clamp(1.8rem,3.1vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:.5rem 0 0}
+  .lede{margin:.8rem 0 0;max-width:34ch;color:var(--muted);font-weight:400;line-height:1.6}
+  .position{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.2rem 0}
+  .place{display:flex;align-items:center;gap:.7rem;font-size:1.4rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}
   .dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--signal);flex:none;animation:ping 2s ease-out infinite}
   @keyframes ping{
     0%{box-shadow:0 0 0 0 rgba(255,32,32,.45)}
     70%{box-shadow:0 0 0 .8rem rgba(255,32,32,0)}
     100%{box-shadow:0 0 0 0 rgba(255,32,32,0)}
   }
-  .note{margin:.6rem 0 0;color:var(--muted);font-weight:400;max-width:36ch;line-height:1.55}
-  .coords{margin:.85rem 0 0;font-size:.85rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
-  .tip{background:#f4f6f8;padding:1.1rem 1.2rem}
-  .tip h2{margin:0 0 .5rem;font-size:.8rem;font-weight:700;color:var(--muted)}
+  .note{margin:.55rem 0 0;color:var(--muted);font-weight:400;max-width:36ch;line-height:1.55}
+  .coords{margin:.8rem 0 0;font-size:.85rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+  .sighting h2{margin:0 0 .6rem;font-size:.8rem;font-weight:700;color:var(--muted)}
+  .sighting .art{border-radius:.75rem;overflow:hidden;line-height:0;background:#eef2f6}
+  .sighting .art svg{width:100%;height:auto;display:block}
+  .sighting figcaption{margin-top:.55rem;font-size:.82rem;font-weight:700;color:var(--muted)}
+  .tip{background:#f4f6f8;padding:1rem 1.1rem}
+  .tip h2{margin:0 0 .45rem;font-size:.8rem;font-weight:700;color:var(--muted)}
   .tip p{margin:0;font-weight:600;line-height:1.5;max-width:38ch}
-  .tip time{display:block;margin-top:.6rem;font-size:.78rem;font-weight:700;color:var(--muted)}
+  .tip time{display:block;margin-top:.55rem;font-size:.78rem;font-weight:700;color:var(--muted)}
   .next{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
   .next span:first-child{color:var(--muted);font-weight:600}
   .clock{font-size:1.3rem;font-weight:800;color:var(--signal);font-variant-numeric:tabular-nums}
-  .log h2{margin:0 0 .8rem;font-size:.9rem;font-weight:700;color:var(--muted)}
+  .log h2{margin:0 0 .7rem;font-size:.9rem;font-weight:700;color:var(--muted)}
   .log ol{list-style:none;margin:0;padding:0}
-  .log li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+  .log li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.9rem}
   .log time{color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
   .reward{
-    background:var(--ink);color:#fff;padding:1rem 1.2rem;margin-top:auto;
+    background:var(--ink);color:#fff;padding:1rem 1.15rem;margin-top:auto;
     display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
   }
-  .reward strong{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+  .reward strong{font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
   .reward span{font-size:.85rem;font-weight:600;opacity:.75}
-
   .stage{position:relative;background:#05080e;overflow:hidden}
   canvas{
     display:block;width:100%;height:100%;cursor:grab;
@@ -100,9 +105,9 @@
     left:calc(1.5rem + env(safe-area-inset-left));bottom:calc(1.5rem + env(safe-area-inset-bottom));
   }
   @media (max-width:900px){
-    .shell{grid-template-columns:1fr;grid-template-rows:52dvh auto}
+    .shell{grid-template-columns:1fr;grid-template-rows:50dvh auto}
     .stage{order:-1}
-    .panel{border-right:none;padding:1.5rem 1.25rem calc(2rem + env(safe-area-inset-bottom))}
+    .panel{border-inline-end:none;padding:1.5rem 1.2rem calc(2rem + env(safe-area-inset-bottom))}
     .hint{display:none}
     .reward{margin-top:1rem}
   }
@@ -115,9 +120,13 @@
 <div class="shell">
   <section class="panel">
     <header>
-      <p class="brand">HyperGO search and recovery</p>
-      <h1>Gogo is still out there.</h1>
-      <p class="lede">A hamster, 15cm, golden, purple shirt. Last seen at HyperGO headquarters. His collar reports a new position every 20 minutes.</p>
+      <div class="langs">
+        <button id="langEn" aria-pressed="true">English</button>
+        <button id="langAr" aria-pressed="false" lang="ar">العربية</button>
+      </div>
+      <p class="brand" id="brand">HyperGO search and recovery</p>
+      <h1 id="title">Gogo is still out there.</h1>
+      <p class="lede" id="lede">A hamster, 15cm, golden, purple HyperGO vest. Last seen at headquarters. His collar reports a new position every 20 minutes.</p>
     </header>
 
     <div class="position">
@@ -126,31 +135,37 @@
       <p class="coords" id="coords">— · —</p>
     </div>
 
+    <figure class="sighting" style="margin:0">
+      <h2 id="sightingTitle">Most recent sighting</h2>
+      <div class="art" id="sightingArt"></div>
+      <figcaption id="sightingCap"></figcaption>
+    </figure>
+
     <div class="tip">
-      <h2>Last information called in</h2>
+      <h2 id="tipTitle">Last information called in</h2>
       <p id="hint">No reports yet.</p>
       <time id="hintTime"></time>
     </div>
 
     <div class="next">
-      <span>Next ping</span>
+      <span id="nextLabel">Next ping</span>
       <span class="clock" id="clock">--:--</span>
     </div>
 
     <div class="log">
-      <h2>Earlier pings</h2>
+      <h2 id="logTitle">Earlier pings</h2>
       <ol id="log"></ol>
     </div>
 
     <div class="reward">
-      <strong>BHD 1,000,000</strong>
-      <span>for his safe return</span>
+      <strong id="rewardAmount">BHD 1,000,000</strong>
+      <span id="rewardLabel">for his safe return</span>
     </div>
   </section>
 
   <section class="stage">
     <canvas id="globe"></canvas>
-    <p class="hint">Drag to turn the globe. Scroll or pinch to zoom.</p>
+    <p class="hint" id="dragHint">Drag to turn the globe. Scroll or pinch to zoom.</p>
     <div class="controls">
       <button id="out" title="Zoom out" aria-label="Zoom out">&minus;</button>
       <button id="in" title="Zoom in" aria-label="Zoom in">+</button>
@@ -162,115 +177,407 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
-/* ---------------- the journey ---------------- */
+/* ================= the journey =================
+   Each waypoint has a time, so pacing is a schedule, not a straight line.
+   spread = how far he wanders around that part of the world, in degrees. */
 const SLOT = 20 * 60 * 1000;
-const START  = Date.parse('2026-09-01T06:00:00Z');
-const ARRIVE = Date.parse('2026-10-25T15:00:00Z');
 
-const ROUTE = [
-  {name:"Sydney, Australia",  lon:151.209, lat:-33.868, note:"Boarded something. Nobody saw what."},
-  {name:"Darwin, Australia",  lon:130.845, lat:-12.463, note:"Crossed the outback. The collar recorded a lot of heat."},
-  {name:"Jakarta, Indonesia", lon:106.845, lat:-6.208,  note:"Hitching rides between delivery scooters."},
-  {name:"Singapore",          lon:103.820, lat:1.352,   note:"Collar temperature dropped. He found air conditioning."},
-  {name:"Bangkok, Thailand",  lon:100.501, lat:13.756,  note:"Signal moving along a canal, slowly."},
-  {name:"Kolkata, India",     lon:88.363,  lat:22.573,  note:"Ping quality poor. Heavy rain on the sensor."},
-  {name:"Mumbai, India",      lon:72.878,  lat:19.076,  note:"Crossed the country by rail. He is definitely wet."},
-  {name:"Karachi, Pakistan",  lon:67.010,  lat:24.861,  note:"Signal came from a cargo port at night."},
-  {name:"Muscat, Oman",       lon:58.407,  lat:23.588,  note:"Salt water on the collar. He came in by sea."},
-  {name:"Dubai, UAE",         lon:55.271,  lat:25.205,  note:"One ping came from somewhere very tall."},
-  {name:"Doha, Qatar",        lon:51.531,  lat:25.286,  note:"Last stop before the causeway. Smells like cardamom."},
-  {name:"Manama, Bahrain",    lon:50.586,  lat:26.229,  note:"Signal steady. He has stopped moving."}
+const WAY = [
+  {name:"Sydney, Australia", ar:"سيدني، أستراليا", lon:151.209, lat:-33.868,
+   at:"2026-09-01T06:00:00Z", spread:.25, scene:"city",
+   note:"Boarded something at the harbour. Nobody saw what.",
+   note_ar:"صعد إلى شيء ما في الميناء. لم يره أحد."},
+  {name:"Hobart, Tasmania", ar:"هوبارت، تسمانيا", lon:147.325, lat:-42.883,
+   at:"2026-09-04T09:00:00Z", spread:.3, scene:"city",
+   note:"Signal came from the resupply wharf, twice in one night.",
+   note_ar:"جاءت الإشارة من رصيف التموين، مرتين في ليلة واحدة."},
+  {name:"the Southern Ocean", ar:"المحيط الجنوبي", lon:144.0, lat:-57.5,
+   at:"2026-09-08T12:00:00Z", spread:1.6, scene:"ocean",
+   note:"Open water. The collar is cold and moving south.",
+   note_ar:"مياه مفتوحة. الطوق بارد ويتحرك جنوباً."},
+  {name:"Dumont d'Urville Station", ar:"محطة دومون دورفيل", lon:140.001, lat:-66.663,
+   at:"2026-09-11T08:00:00Z", spread:.8, scene:"antarctica",
+   note:"Ashore on the ice. Collar temperature reads minus thirty.",
+   note_ar:"وصل إلى الجليد. حرارة الطوق ثلاثون تحت الصفر."},
+  {name:"the Adélie Coast", ar:"ساحل أديلي", lon:128.0, lat:-67.2,
+   at:"2026-09-16T12:00:00Z", spread:2.4, scene:"antarctica",
+   note:"Crossing the ice shelf, westward, in no particular hurry.",
+   note_ar:"يعبر الجرف الجليدي غرباً، دون عجلة."},
+  {name:"Mawson Station", ar:"محطة ماوسون", lon:62.874, lat:-67.603,
+   at:"2026-09-21T10:00:00Z", spread:1.2, scene:"antarctica",
+   note:"Two thousand kilometres of ice behind him. Still going west.",
+   note_ar:"وراءه ألفا كيلومتر من الجليد. وما زال يتجه غرباً."},
+  {name:"the Kerguelen Islands", ar:"جزر كيرغيلين", lon:70.221, lat:-49.350,
+   at:"2026-09-25T16:00:00Z", spread:1.0, scene:"island",
+   note:"Off the ice at last. Wind readings on the collar are absurd.",
+   note_ar:"غادر الجليد أخيراً. قراءات الرياح على الطوق مبالغ فيها."},
+  {name:"Réunion", ar:"جزيرة ريونيون", lon:55.536, lat:-21.115,
+   at:"2026-09-30T11:00:00Z", spread:.6, scene:"tropics",
+   note:"Warm again. He has stopped shivering, according to the sensor.",
+   note_ar:"عاد الدفء. توقف عن الارتجاف، بحسب المستشعر."},
+  {name:"the Seychelles", ar:"سيشيل", lon:55.450, lat:-4.620,
+   at:"2026-10-05T09:00:00Z", spread:.8, scene:"tropics",
+   note:"Island hopping. The collar keeps logging salt water.",
+   note_ar:"يتنقل بين الجزر. الطوق يسجل ماءً مالحاً باستمرار."},
+  {name:"Salalah, Oman", ar:"صلالة، عُمان", lon:54.092, lat:17.019,
+   at:"2026-10-11T15:00:00Z", spread:.7, scene:"desert",
+   note:"Crossed the Arabian Sea. First dry land in a week.",
+   note_ar:"عبر بحر العرب. أول يابسة منذ أسبوع."},
+  {name:"Muscat, Oman", ar:"مسقط، عُمان", lon:58.407, lat:23.588,
+   at:"2026-10-16T12:00:00Z", spread:.6, scene:"desert",
+   note:"Moving up the coast road, mostly at night.",
+   note_ar:"يتحرك على الطريق الساحلي، غالباً ليلاً."},
+  {name:"Dubai, UAE", ar:"دبي، الإمارات", lon:55.271, lat:25.205,
+   at:"2026-10-20T18:00:00Z", spread:.35, scene:"gulf",
+   note:"One ping came from somewhere very tall.",
+   note_ar:"جاءت إحدى الإشارات من مكان شاهق."},
+  {name:"Doha, Qatar", ar:"الدوحة، قطر", lon:51.531, lat:25.286,
+   at:"2026-10-23T14:00:00Z", spread:.3, scene:"gulf",
+   note:"Last stop before the causeway. Smells like cardamom.",
+   note_ar:"آخر محطة قبل الجسر. رائحة هيل."},
+  {name:"Manama, Bahrain", ar:"المنامة، البحرين", lon:50.586, lat:26.229,
+   at:"2026-10-25T15:00:00Z", spread:.15, scene:"home",
+   note:"Signal steady. He has stopped moving.",
+   note_ar:"الإشارة ثابتة. توقف عن الحركة."}
 ];
+const TS = WAY.map(w => Date.parse(w.at));
 
-const R_EARTH = 6371;
-const legs = ROUTE.slice(1).map((p,i) => d3.geoDistance([ROUTE[i].lon,ROUTE[i].lat],[p.lon,p.lat]) * R_EARTH);
-const totalKm = d3.sum(legs);
-const cum = legs.reduce((a,d) => (a.push(a[a.length-1] + d), a), [0]);
+/* callers phone in after every ping — local, and never naming where he is headed */
+const REPORTS = {
+en:[
+ ["A dock worker says a small golden thing was asking which boats go south.",
+  "A ferry hand found sunflower husks in a lifejacket locker. Nobody was in there.",
+  "Night security reports a shape the size of a tennis ball crossing the loading yard."],
+ ["A chandler says a tiny customer priced up a thermal blanket and left without one.",
+  "A caller reports small prints on the resupply wharf, all heading up the gangway.",
+  "A deckhand says something climbed the mooring line at two in the morning."],
+ ["A supply ship reports a stowaway in the rope locker. He looked comfortable.",
+  "The ship's cook says one glove went missing and came back warm.",
+  "A caller says something small watched the albatrosses for six hours straight."],
+ ["A station technician reports a hamster in a borrowed parka three sizes too big.",
+  "The kitchen says a whole bag of seeds walked out of the store room.",
+  "A field team found small prints beside the penguin colony, heading inland."],
+ ["A traverse driver says something small rode on the sled and would not be talked off it.",
+  "Someone at the weather mast reports a hamster reading the wind gauge, upside down.",
+  "A caller says the prints run west in a dead straight line for two kilometres."],
+ ["An icebreaker crew reports a passenger nobody signed in.",
+  "A caller says the galley loses exactly one biscuit a day. Never two.",
+  "A deck officer reports small prints leading to the lifeboat davits."],
+ ["A researcher says a hamster shared his lunch and left him the wrapper.",
+  "A caller reports something small asleep in a coil of rope, facing north.",
+  "A fisherman says his smallest ever passenger pointed north and squeaked once."],
+ ["A market trader reports a customer who tried to pay in seeds again.",
+  "A hotel gardener says something small has been sleeping in the hibiscus.",
+  "A boat hand reports a hamster in a straw hat, watching the horizon."],
+ ["A dhow captain says his crew has been feeding something small and will not say what.",
+  "A caller says a hamster rode the bow the whole way, soaked and delighted.",
+  "A harbourmaster reports tiny prints along the quay, heading north."],
+ ["A frankincense seller says a small customer smelled everything and bought nothing.",
+  "A driver on the coast road reports a passenger in his glovebox.",
+  "A caller says something small has been pacing the beach at dawn."],
+ ["A souk trader reports a hamster in a headscarf, haggling badly.",
+  "A valet says something small slept on a warm bonnet and left prints.",
+  "A caller reports a small figure on the corniche wall, facing northwest."],
+ ["A window cleaner agrees that one ping came from somewhere very tall.",
+  "A courier says he recognised the purple vest at a delivery bay.",
+  "A guard at the marina reports tiny prints along a pontoon, heading northwest."],
+ ["A driver says a small passenger asked about the causeway. Twice.",
+  "A caller reports something small watching the bridge traffic since morning.",
+  "A cafe owner says he sat facing northwest and would not order anything."]
+],
+ar:[
+ ["عامل في الميناء يقول إن شيئاً ذهبياً صغيراً كان يسأل عن السفن المتجهة جنوباً.",
+  "بحّار وجد قشور بذور عبّاد الشمس في خزانة سترات النجاة. لم يكن أحد بداخلها.",
+  "الحراسة الليلية تبلغ عن شكل بحجم كرة تنس يعبر ساحة التحميل."],
+ ["بائع معدات بحرية يقول إن زبوناً صغيراً سأل عن سعر بطانية حرارية ثم غادر دونها.",
+  "متصل يبلغ عن آثار صغيرة على رصيف التموين، كلها تصعد نحو السفينة.",
+  "عامل رصيف يقول إن شيئاً تسلق حبل الربط في الثانية فجراً."],
+ ["سفينة إمداد تبلغ عن متسلل في خزانة الحبال. بدا مرتاحاً.",
+  "طباخ السفينة يقول إن قفازاً اختفى وعاد دافئاً.",
+  "متصل يقول إن شيئاً صغيراً راقب طيور القطرس ست ساعات متواصلة."],
+ ["فني في المحطة يبلغ عن هامستر يرتدي معطفاً مستعاراً أكبر منه بثلاثة مقاسات.",
+  "المطبخ يقول إن كيس بذور كاملاً غادر المخزن وحده.",
+  "فريق ميداني وجد آثاراً صغيرة قرب مستعمرة البطاريق، تتجه نحو الداخل."],
+ ["سائق قافلة جليدية يقول إن شيئاً صغيراً ركب المزلجة ورفض النزول.",
+  "أحدهم عند صاري الأرصاد يبلغ عن هامستر يقرأ مقياس الرياح مقلوباً.",
+  "متصل يقول إن الآثار تمتد غرباً في خط مستقيم لكيلومترين."],
+ ["طاقم كاسحة جليد يبلغ عن راكب لم يسجله أحد.",
+  "متصل يقول إن المطبخ يفقد بسكويتة واحدة يومياً. ولا مرة اثنتين.",
+  "ضابط سطح يبلغ عن آثار صغيرة تؤدي إلى قوارب النجاة."],
+ ["باحث يقول إن هامستر شاركه غداءه وترك له الغلاف.",
+  "متصل يبلغ عن شيء صغير نائم داخل لفة حبال، متجهاً نحو الشمال.",
+  "صياد يقول إن أصغر راكب لديه أشار شمالاً وصرّ مرة واحدة."],
+ ["بائع في السوق يبلغ عن زبون حاول الدفع بالبذور مجدداً.",
+  "بستاني فندق يقول إن شيئاً صغيراً ينام بين أشجار الكركديه.",
+  "بحّار يبلغ عن هامستر بقبعة قش يراقب الأفق."],
+ ["ربّان سفينة يقول إن بحّارته يطعمون شيئاً صغيراً ويرفضون الإفصاح عنه.",
+  "متصل يقول إن هامستر ركب مقدمة القارب طوال الطريق، مبللاً وسعيداً.",
+  "مدير الميناء يبلغ عن آثار صغيرة على الرصيف تتجه شمالاً."],
+ ["بائع لبان يقول إن زبوناً صغيراً شمّ كل شيء ولم يشترِ شيئاً.",
+  "سائق على الطريق الساحلي يبلغ عن راكب داخل صندوق القفازات.",
+  "متصل يقول إن شيئاً صغيراً يذرع الشاطئ عند الفجر."],
+ ["تاجر في السوق يبلغ عن هامستر يرتدي غترة ويفاوض بشكل سيئ.",
+  "عامل مواقف يقول إن شيئاً صغيراً نام على غطاء محرك دافئ وترك آثاراً.",
+  "متصل يبلغ عن شكل صغير على جدار الكورنيش، متجه نحو الشمال الغربي."],
+ ["منظف واجهات يؤكد أن إحدى الإشارات جاءت من مكان شاهق.",
+  "موصّل طلبات يقول إنه تعرّف على السترة البنفسجية عند رصيف التسليم.",
+  "حارس في المرسى يبلغ عن آثار صغيرة على الممر العائم تتجه شمالاً غرباً."],
+ ["سائق يقول إن راكباً صغيراً سأله عن الجسر. مرتين.",
+  "متصل يبلغ عن شيء صغير يراقب حركة السير على الجسر منذ الصباح.",
+  "صاحب مقهى يقول إنه جلس في مواجهة الشمال الغربي ورفض أن يطلب شيئاً."]
+]};
 
+/* ================= position ================= */
 const slotIndex = t => Math.floor(t / SLOT);
 const slotTime  = t => slotIndex(t) * SLOT;
-
+const hash = n => { const x = Math.sin(n * 127.1) * 43758.5453; return x - Math.floor(x); };
+function noise(t){
+  const i = Math.floor(t), f = t - i, u = f * f * (3 - 2 * f);
+  return (hash(i) * 2 - 1) * (1 - u) + (hash(i + 1) * 2 - 1) * u;
+}
+function segAt(t){
+  if (t <= TS[0]) return {i:0, f:0};
+  for (let i = 0; i < WAY.length - 1; i++) if (t < TS[i+1]) return {i, f:(t - TS[i]) / (TS[i+1] - TS[i])};
+  return {i:WAY.length - 2, f:1};
+}
+/* he wanders locally — slow drift plus a faster wobble, so every ping lands somewhere new */
+function pointAt(t){
+  const {i,f} = segAt(t);
+  const a = WAY[i], b = WAY[i+1];
+  const p = d3.geoInterpolate([a.lon,a.lat],[b.lon,b.lat])(f);
+  const spread = a.spread + (b.spread - a.spread) * f;
+  const h = t / 3600000;
+  const dlat = (noise(h / 26) * 1.0 + noise(h / 2.6 + 11.7) * .45) * spread;
+  const dlon = (noise(h / 26 + 5.3) * 1.25 + noise(h / 2.6 + 31.2) * .5) * spread;
+  return [p[0] + dlon, Math.max(-86, Math.min(86, p[1] + dlat))];
+}
 function positionAt(time){
   const t = slotTime(time);
-  const p = Math.max(0, Math.min(1, (t - START) / (ARRIVE - START)));
-  const travelled = p * totalKm;
-  if (p >= 1){
-    const home = ROUTE[ROUTE.length-1];
-    return {lon:home.lon, lat:home.lat, name:home.name, note:home.note, leg:legs.length-1, home:true};
-  }
-  let i = cum.findIndex((c,j) => j < legs.length && travelled < cum[j+1]);
-  if (i < 0) i = legs.length - 1;
-  const f = legs[i] ? (travelled - cum[i]) / legs[i] : 0;
-  const a = ROUTE[i], b = ROUTE[i+1];
-  const [lon,lat] = d3.geoInterpolate([a.lon,a.lat],[b.lon,b.lat])(f);
-  const near = f < 0.18 ? a : f > 0.82 ? b : null;
-  return {
-    lon, lat, leg:i, home:false,
-    name: near ? near.name : `Between ${a.name.split(',')[0]} and ${b.name.split(',')[0]}`,
-    note: f > 0.5 ? b.note : a.note
-  };
+  const {i,f} = segAt(t);
+  const [lon,lat] = pointAt(t);
+  return {lon, lat, i, f, scene:WAY[f > .5 ? i+1 : i].scene,
+          nearIdx: f < .2 ? i : f > .8 ? i+1 : -1,
+          home: t >= TS[TS.length-1]};
+}
+function reportAt(time){
+  const s = positionAt(time);
+  const set = REPORTS[lang][Math.min(s.i, REPORTS.en.length - 1)];
+  return set[Math.floor(hash(slotIndex(time) * 7.31 + s.i) * set.length) % set.length];
 }
 
-/* everywhere he has already been */
-function pointAtKm(d){
-  d = Math.max(0, Math.min(totalKm, d));
-  let i = cum.findIndex((c,j) => j < legs.length && d < cum[j+1]);
-  if (i < 0) i = legs.length - 1;
-  const f = legs[i] ? (d - cum[i]) / legs[i] : 0;
-  const a = ROUTE[i], b = ROUTE[i+1];
-  return d3.geoInterpolate([a.lon,a.lat],[b.lon,b.lat])(f);
-}
-function travelledKm(time){
-  const p = Math.max(0, Math.min(1, (slotTime(time) - START) / (ARRIVE - START)));
-  return p * totalKm;
+/* ================= language ================= */
+const I18N = {
+  en:{ dir:'ltr', locale:[],
+    brand:'HyperGO search and recovery',
+    title:'Gogo is still out there.',
+    lede:'A hamster, 15cm, golden, purple HyperGO vest. Last seen at headquarters. His collar reports a new position every 20 minutes.',
+    sightingTitle:'Most recent sighting',
+    tipTitle:'Last information called in',
+    nextLabel:'Next ping', logTitle:'Earlier pings',
+    rewardAmount:'BHD 1,000,000', rewardLabel:'for his safe return',
+    dragHint:'Drag to turn the globe. Scroll or pinch to zoom.',
+    reset:'Find Gogo', noMap:'Map data unavailable — the tracker is still live.',
+    calledIn:d => `Called in ${d}`,
+    seen:(p,t) => `${p} · ${t}`,
+    near:n => `Near ${n}`,
+    between:(a,b) => `Between ${a} and ${b}`,
+    dirs:['N','S','E','W'] },
+  ar:{ dir:'rtl', locale:'ar-u-nu-latn',
+    brand:'هايبر جو — البحث والاسترجاع',
+    title:'غوغو ما زال في الخارج.',
+    lede:'هامستر، 15 سم، ذهبي اللون، يرتدي سترة هايبر جو البنفسجية. شوهد آخر مرة في المقر. يرسل طوقه موقعاً جديداً كل 20 دقيقة.',
+    sightingTitle:'آخر مشاهدة',
+    tipTitle:'آخر معلومة وردت',
+    nextLabel:'الإشارة القادمة', logTitle:'إشارات سابقة',
+    rewardAmount:'1,000,000 دينار بحريني', rewardLabel:'مكافأة لمن يعيده سالماً',
+    dragHint:'اسحب لتدوير الكرة الأرضية. مرّر أو اقرص للتكبير.',
+    reset:'أين غوغو', noMap:'بيانات الخريطة غير متاحة — التتبع ما زال يعمل.',
+    calledIn:d => `وردت في ${d}`,
+    seen:(p,t) => `${p} · ${t}`,
+    near:n => `قرب ${n}`,
+    between:(a,b) => `بين ${a} و${b}`,
+    dirs:['شمالاً','جنوباً','شرقاً','غرباً'] }
+};
+let lang = 'en';
+const T = () => I18N[lang];
+const cityName  = i => lang === 'ar' ? WAY[i].ar : WAY[i].name;
+const cityShort = i => cityName(i).split(lang === 'ar' ? '،' : ',')[0];
+const placeLabel = s => s.nearIdx >= 0 ? T().near(cityName(s.nearIdx))
+                                       : T().between(cityShort(s.i), cityShort(s.i+1));
+const noteText = s => lang === 'ar' ? WAY[s.f > .5 ? s.i+1 : s.i].note_ar : WAY[s.f > .5 ? s.i+1 : s.i].note;
+
+/* ================= the sighting picture =================
+   Gogo, drawn to match the mascot, dressed for wherever he currently is.
+   Redrawn every hour: pose, weather and time of day all shift. */
+const SCENES = {
+  city:      {day:['#cfe4ff','#f2f7ff','#dde5ee'], night:['#16244d','#2b3b6b','#22304f'], gear:'helmet'},
+  ocean:     {day:['#a8c6dd','#e2eef5','#7fa8c4'], night:['#0e1f3c','#20395c','#14284a'], gear:'rain'},
+  antarctica:{day:['#a9c8e6','#eaf4fb','#f4fafd'], night:['#101e3f','#2a3f6d','#c9d8e8'], gear:'parka'},
+  island:    {day:['#bfdce4','#eef7f3','#c9d9bd'], night:['#122436','#24415a','#2d4038'], gear:'rain'},
+  tropics:   {day:['#b9e6e6','#fff6e4','#f0dfb6'], night:['#122b3d','#274a5c','#3b4452'], gear:'sunhat'},
+  desert:    {day:['#f7d7a2','#fdf2e0','#e8cd9b'], night:['#1d2140','#3b3560','#4a4058'], gear:'shemagh'},
+  gulf:      {day:['#dcdbf4','#f6f3fc','#e5e0f3'], night:['#171634','#312a5c','#2a2447'], gear:'helmet'},
+  home:      {day:['#e6daf9','#faf5ff','#e9e1f6'], night:['#1b1440','#3a2a6b','#2d2352'], gear:'helmet'}
+};
+const localHour = (lon, t) => (new Date(t).getUTCHours() + lon / 15 + 24) % 24;
+
+function scenery(scene, night, v){
+  const dots = n => Array.from({length:n}, (_,j) =>
+    `<circle cx="${18 + hash(j*3.1+v)*270}" cy="${12 + hash(j*7.7+v)*70}" r="${1 + hash(j*2.3)*.8}" fill="#fff" opacity="${.5 + hash(j)*.4}"/>`).join('');
+  const sky = night ? `<circle cx="248" cy="34" r="13" fill="#f3f0e2" opacity=".9"/>${dots(9)}`
+                    : `<circle cx="248" cy="34" r="15" fill="#ffe9a8"/>`;
+  const s = {
+    antarctica:`<path d="M18 132 L54 92 L90 132 Z" fill="#dcebf5"/><path d="M212 132 L246 98 L280 132 Z" fill="#e4f0f8"/>
+      <ellipse cx="56" cy="128" rx="10" ry="14" fill="${night?'#23324f':'#2b3746'}"/><ellipse cx="56" cy="130" rx="5" ry="9" fill="#f6fbff"/>
+      <path d="M50 121 l-5 3 5 2z" fill="#e8a33f"/>`,
+    ocean:`<path d="M0 118 q30 -8 60 0 t60 0 t60 0 t60 0 t60 0 v40 H0z" fill="${night?'#14294a':'#8fb6d0'}" opacity=".75"/>
+      <path d="M236 112 l10 -18 l10 18z" fill="${night?'#2a3f63':'#5d7f99'}"/>`,
+    city:`<g fill="${night?'#0e1932':'#c2cfdd'}"><rect x="24" y="84" width="22" height="48"/><rect x="52" y="66" width="18" height="66"/>
+      <rect x="76" y="96" width="26" height="36"/><rect x="228" y="76" width="20" height="56"/><rect x="254" y="92" width="24" height="40"/></g>`,
+    island:`<path d="M0 132 q40 -34 86 -2z" fill="${night?'#1e3a2c'}" opacity=".9"/>
+      <path d="M244 132 v-34" stroke="${night?'#2c4436':'#7d6b4a'}" stroke-width="5" fill="none"/>
+      <ellipse cx="232" cy="96" rx="20" ry="7" fill="${night?'#27503c':'#4f8a58'}"/><ellipse cx="258" cy="96" rx="20" ry="7" fill="${night?'#2b5a42':'#5c9a63'}"/>`,
+    tropics:`<path d="M52 132 v-40" stroke="${night?'#2c4436':'#8a7148'}" stroke-width="5" fill="none"/>
+      <ellipse cx="40" cy="90" rx="22" ry="8" fill="${night?'#27503c':'#54985e'}"/><ellipse cx="66" cy="90" rx="22" ry="8" fill="${night?'#2b5a42':'#62a86c'}"/>
+      <path d="M0 126 q70 -10 140 0 t160 0 v14 H0z" fill="${night?'#2a3b4a':'#f6e7c4'}"/>`,
+    desert:`<path d="M0 132 q54 -26 110 -6 q46 16 90 -8 q52 -28 100 -2 v20 H0z" fill="${night?'#2c2846':'#e3c48d'}"/>`,
+    gulf:`<g fill="${night?'#0f0e28':'#cfc9e8'}"><rect x="30" y="60" width="14" height="72"/><path d="M52 132 V70 l10 -18 l10 18 v62z"/>
+      <rect x="80" y="88" width="18" height="44"/><rect x="236" y="74" width="16" height="58"/><rect x="258" y="94" width="20" height="38"/></g>`,
+    home:`<g fill="${night?'#141033':'#d8cff0'}"><rect x="26" y="82" width="18" height="50"/><rect x="50" y="66" width="14" height="66"/>
+      <rect x="72" y="94" width="22" height="38"/><rect x="240" y="86" width="18" height="46"/></g>
+      <path d="M108 124 h84" stroke="${night?'#4b3f7d':'#b7a9dd'}" stroke-width="4"/>`
+  }[scene] || '';
+  return sky + s;
 }
 
-/* what callers have reported, one per leg — nobody has said where he is going */
-const HINTS = [
-  "A dock worker says a small golden thing was asking, in squeaks, which boats go west.",
-  "A driver on the Stuart Highway reports a hamster studying a map. He would not say whose.",
-  "A market trader says he bought nothing and left heading northwest, in a hurry.",
-  "A caller says he kept checking the departure boards and only the westbound ones.",
-  "A woman on a canal boat says he had a delivery bag with him. It was not hers.",
-  "Station staff report a small passenger who changed trains twice, both times going west.",
-  "A caller says he has been asking about ferry timetables across the Gulf.",
-  "A port guard reports a stowaway in a crate of dates. The crate was bound for Oman.",
-  "A fisherman says he asked how long it takes to reach the other side of the water.",
-  "A courier says he recognised the purple shirt and that he was asking for the causeway.",
-  "A caller says he has been sitting by the water, facing northwest, waiting for something."
-];
-const legStart = i => new Date(START + (cum[i] / totalKm) * (ARRIVE - START));
+function gogo(gear, pose){
+  const fur = '#f0a95f', furDark = '#e08c3e', cream = '#ffe6c8', purple = '#6d28d9', dark = '#2f2b35';
+  const armUp = pose !== 1;
+  return `
+  <g transform="translate(150 8)">
+    ${armUp ? `<ellipse cx="36" cy="74" rx="8" ry="15" transform="rotate(24 36 74)" fill="${fur}"/>
+               <circle cx="43" cy="62" r="7" fill="${cream}"/>` : ''}
+    <ellipse cx="-24" cy="112" rx="9" ry="6" fill="${cream}"/><ellipse cx="24" cy="112" rx="9" ry="6" fill="${cream}"/>
+    <ellipse cx="0" cy="90" rx="27" ry="26" fill="${fur}"/>
+    <path d="M-22 74 h44 a6 6 0 0 1 6 6 v26 a6 6 0 0 1 -6 6 h-44 a6 6 0 0 1 -6 -6 v-26 a6 6 0 0 1 6 -6z" fill="${purple}"/>
+    <path d="M-22 74 h8 v38 h-8 a6 6 0 0 1 -6 -6 v-26 a6 6 0 0 1 6 -6z" fill="${dark}"/>
+    <path d="M14 74 h8 a6 6 0 0 1 6 6 v26 a6 6 0 0 1 -6 6 h-8z" fill="${dark}"/>
+    <text x="0" y="97" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">HyperGO</text>
+    ${pose === 1 ? `<ellipse cx="-32" cy="92" rx="7" ry="13" transform="rotate(-12 -32 92)" fill="${fur}"/>
+                    <circle cx="-36" cy="103" r="6" fill="${cream}"/><circle cx="-40" cy="104" r="2.4" fill="#6b4a2a"/>` :
+                   `<ellipse cx="-32" cy="92" rx="7" ry="13" transform="rotate(-12 -32 92)" fill="${fur}"/>`}
+    <ellipse cx="-20" cy="24" rx="10" ry="11" fill="${furDark}"/><ellipse cx="-20" cy="24" rx="5.5" ry="6.5" fill="#f0b0a6"/>
+    <ellipse cx="20" cy="24" rx="10" ry="11" fill="${furDark}"/><ellipse cx="20" cy="24" rx="5.5" ry="6.5" fill="#f0b0a6"/>
+    <ellipse cx="0" cy="40" rx="29" ry="27" fill="${fur}"/>
+    <ellipse cx="0" cy="50" rx="20" ry="16" fill="${cream}"/>
+    <ellipse cx="-11" cy="38" rx="6.5" ry="7.5" fill="#fff"/><ellipse cx="11" cy="38" rx="6.5" ry="7.5" fill="#fff"/>
+    <circle cx="-10" cy="39" r="4.6" fill="#3b2417"/><circle cx="12" cy="39" r="4.6" fill="#3b2417"/>
+    <circle cx="-11.6" cy="37" r="1.7" fill="#fff"/><circle cx="10.4" cy="37" r="1.7" fill="#fff"/>
+    <path d="M-18 28 q7 -5 13 -1" stroke="#3b2417" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <path d="M18 28 q-7 -5 -13 -1" stroke="#3b2417" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="0" cy="47" rx="4" ry="3" fill="#e08a7d"/>
+    <path d="M0 50 q-5 6 -10 2 M0 50 q5 6 10 2" stroke="#c8836b" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <rect x="-3.2" y="52" width="6.4" height="7" rx="1.6" fill="#fff"/>
+    ${gearArt(gear)}
+  </g>`;
+}
+function gearArt(gear){
+  if (gear === 'parka') return `
+    <path d="M-34 40 a34 34 0 0 1 68 0 a34 34 0 0 1 -8 22 a28 28 0 0 0 -52 0 a34 34 0 0 1 -8 -22z" fill="#f6fbff" opacity=".95"/>
+    <path d="M-30 40 a30 30 0 0 1 60 0" stroke="#dfeaf3" stroke-width="4" fill="none"/>
+    <rect x="-24" y="28" width="48" height="11" rx="5.5" fill="#2f3440"/>
+    <ellipse cx="-11" cy="33.5" rx="7" ry="3.6" fill="#8fd6e8" opacity=".8"/><ellipse cx="11" cy="33.5" rx="7" ry="3.6" fill="#8fd6e8" opacity=".8"/>
+    <path d="M-20 66 q20 10 40 0 v8 q-20 9 -40 0z" fill="#6d28d9"/>`;
+  if (gear === 'sunhat') return `
+    <ellipse cx="0" cy="18" rx="38" ry="9" fill="#e9d09b"/><ellipse cx="0" cy="12" rx="19" ry="11" fill="#f0dcae"/>
+    <path d="M-19 13 a19 11 0 0 0 38 0" stroke="#6d28d9" stroke-width="4" fill="none"/>`;
+  if (gear === 'shemagh') return `
+    <path d="M-32 34 a32 30 0 0 1 64 0 q2 26 -12 34 q-20 6 -40 0 q-14 -8 -12 -34z" fill="#f4f1e6"/>
+    <path d="M-32 30 a32 28 0 0 1 64 0 z" fill="#fbf9f2"/>
+    <rect x="-30" y="20" width="60" height="7" rx="3.5" fill="#2f3440"/>`;
+  if (gear === 'rain') return `
+    <path d="M-33 40 a33 33 0 0 1 66 0 a30 30 0 0 1 -6 20 a28 28 0 0 0 -54 0 a30 30 0 0 1 -6 -20z" fill="#f2c14a"/>
+    <path d="M-20 66 q20 10 40 0 v7 q-20 9 -40 0z" fill="#f2c14a"/>`;
+  if (gear === 'helmet') return `
+    <path d="M-32 34 a32 30 0 0 1 64 0 q0 8 -4 10 h-56 q-4 -2 -4 -10z" fill="#6d28d9"/>
+    <path d="M-36 44 h72 q2 6 -4 7 h-64 q-6 -1 -4 -7z" fill="#3a1d80"/>
+    <text x="0" y="26" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">HyperGO</text>`;
+  return '';
+}
 
-/* ---------------- panel ---------------- */
+function sightingSVG(scene, hourIdx){
+  const cfg = SCENES[scene] || SCENES.city;
+  const s = positionAt(Date.now());
+  const night = (() => { const h = localHour(s.lon, Date.now()); return h < 6.5 || h > 18.5; })();
+  const [c1,c2,ground] = night ? cfg.night : cfg.day;
+  const pose = Math.floor(hash(hourIdx * 3.7) * 3);
+  const snow = scene === 'antarctica' ? Array.from({length:14}, (_,j) =>
+    `<circle cx="${10 + hash(j*5.3+hourIdx)*290}" cy="${8 + hash(j*9.1+hourIdx)*120}" r="1.6" fill="#fff" opacity=".75"/>`).join('') : '';
+  return `<svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+    <rect width="300" height="150" fill="url(#sky)"/>
+    ${scenery(scene, night, hourIdx)}
+    <rect y="130" width="300" height="20" fill="${ground}"/>
+    ${gogo(cfg.gear, pose)}
+    ${snow}
+  </svg>`;
+}
+
+/* ================= panel ================= */
 const fmtCoord = (v,p,n) => `${Math.abs(v).toFixed(3)}° ${v >= 0 ? p : n}`;
-const fmtTime  = ms => new Date(ms).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-const fmtDate  = d => d.toLocaleString([], {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+const fmtTime  = ms => new Date(ms).toLocaleTimeString(T().locale, {hour:'2-digit', minute:'2-digit'});
+const fmtDate  = d => d.toLocaleString(T().locale, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+const hourIndex = t => Math.floor(t / 3600000);
 
 function paintPanel(){
-  const now = Date.now(), s = positionAt(now);
-  place.textContent = s.name;
-  note.textContent  = s.note;
-  coords.textContent = `${fmtCoord(s.lat,'N','S')} · ${fmtCoord(s.lon,'E','W')}`;
-  hint.textContent = HINTS[Math.min(s.leg, HINTS.length-1)];
-  hintTime.textContent = `Called in ${fmtDate(legStart(s.leg))}`;
+  const now = Date.now(), s = positionAt(now), t = T();
+  place.textContent = placeLabel(s);
+  note.textContent  = noteText(s);
+  coords.textContent = `${fmtCoord(s.lat, t.dirs[0], t.dirs[1])} · ${fmtCoord(s.lon, t.dirs[2], t.dirs[3])}`;
+  hint.textContent = reportAt(now);
+  hintTime.textContent = t.calledIn(fmtDate(new Date(slotTime(now))));
   log.innerHTML = '';
   for (let i = 1; i <= 5; i++){
-    const t = now - i * SLOT, p = positionAt(t), li = document.createElement('li');
-    li.innerHTML = `<span>${p.name}</span><time>${fmtTime(slotTime(t))}</time>`;
+    const at = now - i * SLOT, li = document.createElement('li');
+    li.innerHTML = `<span>${placeLabel(positionAt(at))}</span><time>${fmtTime(slotTime(at))}</time>`;
     log.appendChild(li);
   }
+  paintSighting();
+}
+function paintSighting(){
+  const now = Date.now(), s = positionAt(now), h = hourIndex(now);
+  sightingArt.innerHTML = sightingSVG(s.scene, h);
+  sightingCap.textContent = T().seen(placeLabel(s), fmtDate(new Date(h * 3600000)));
 }
 function tickClock(){
   const now = Date.now(), left = (slotIndex(now) + 1) * SLOT - now;
   clock.textContent =
     `${String(Math.floor(left/60000)).padStart(2,'0')}:${String(Math.floor(left%60000/1000)).padStart(2,'0')}`;
 }
+function setLang(next){
+  lang = next;
+  const t = T();
+  document.documentElement.lang = next;
+  document.documentElement.dir = t.dir;
+  brand.textContent = t.brand; title.textContent = t.title; lede.textContent = t.lede;
+  sightingTitle.textContent = t.sightingTitle; tipTitle.textContent = t.tipTitle;
+  nextLabel.textContent = t.nextLabel; logTitle.textContent = t.logTitle;
+  rewardAmount.textContent = t.rewardAmount; rewardLabel.textContent = t.rewardLabel;
+  dragHint.textContent = t.dragHint;
+  document.getElementById('reset').textContent = t.reset;
+  langEn.setAttribute('aria-pressed', next === 'en');
+  langAr.setAttribute('aria-pressed', next === 'ar');
+  document.title = next === 'ar' ? 'تتبّع غوغو — هايبر جو' : 'Gogo Tracker — HyperGO';
+  try { localStorage.setItem('gogo-lang', next); } catch(e){}
+  paintPanel(); tickClock();
+}
 
-/* ---------------- globe ---------------- */
+/* ================= globe ================= */
 const stage = document.querySelector('.stage');
 const canvas = document.getElementById('globe');
 const ctx = canvas.getContext('2d');
-const base = document.createElement('canvas');   // static layer, redrawn only when the view changes
+const base = document.createElement('canvas');
 const bctx = base.getContext('2d');
 
 const projection = d3.geoOrthographic().clipAngle(90).precision(0.5);
@@ -279,14 +586,12 @@ const grat = d3.geoGraticule().step([15,15])();
 const gratFine = d3.geoGraticule().step([5,5])();
 
 let hi = null, lo = null;
-let W = 0, H = 0, dpr = 1;
-let baseScale = 300, k = 1;
+let W = 0, H = 0, dpr = 1, baseScale = 300, k = 1;
 let rotation = [-positionAt(Date.now()).lon, -positionAt(Date.now()).lat];
 let target = rotation.slice();
 let settling = true, dragging = false, baseDirty = true;
-let currentSlot = slotIndex(Date.now());
+let currentSlot = slotIndex(Date.now()), currentHour = hourIndex(Date.now());
 
-/* exact fit: the bitmap is sized to the element's real pixels, never stretched */
 function fit(){
   document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
   const rect = stage.getBoundingClientRect();
@@ -294,12 +599,11 @@ function fit(){
   if (!nw || !nh) return;
   dpr = Math.min(window.devicePixelRatio || 1, 2.5);
   W = nw; H = nh;
-  canvas.width  = base.width  = Math.round(W * dpr);
+  canvas.width = base.width = Math.round(W * dpr);
   canvas.height = base.height = Math.round(H * dpr);
   canvas.style.width = base.style.width = W + 'px';
   canvas.style.height = H + 'px';
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  bctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0); bctx.setTransform(dpr,0,0,dpr,0,0);
   baseScale = Math.min(W,H) * 0.44;
   projection.translate([W/2,H/2]).scale(baseScale * k);
   baseDirty = true;
@@ -314,129 +618,108 @@ function lookAtGogo(){
   target = [-s.lon, -s.lat];
   settling = true;
 }
-
 function renderBase(){
   const detail = (dragging || settling) && lo ? lo : (hi || lo);
   const cx = W/2, cy = H/2, r = baseScale * k;
-
   bctx.clearRect(0,0,W,H);
 
   const air = bctx.createRadialGradient(cx,cy,r*0.97,cx,cy,r*1.16);
-  air.addColorStop(0,'rgba(86,148,224,.30)');
-  air.addColorStop(1,'rgba(86,148,224,0)');
+  air.addColorStop(0,'rgba(86,148,224,.30)'); air.addColorStop(1,'rgba(86,148,224,0)');
   bctx.beginPath(); bctx.arc(cx,cy,r*1.16,0,Math.PI*2); bctx.fillStyle = air; bctx.fill();
 
-  bctx.beginPath(); path({type:'Sphere'});
-  bctx.fillStyle = '#0b2137'; bctx.fill();
-
+  bctx.beginPath(); path({type:'Sphere'}); bctx.fillStyle = '#0b2137'; bctx.fill();
   bctx.beginPath(); path(k > 3 ? gratFine : grat);
   bctx.lineWidth = .5; bctx.strokeStyle = 'rgba(150,190,235,.16)'; bctx.stroke();
 
   if (detail){
-    bctx.beginPath(); path(detail.land);
-    bctx.fillStyle = '#35523c'; bctx.fill();
-
+    bctx.beginPath(); path(detail.land); bctx.fillStyle = '#35523c'; bctx.fill();
     bctx.beginPath(); path(detail.borders);
-    bctx.lineWidth = Math.min(1, .4 + k*.06);
-    bctx.strokeStyle = 'rgba(196,214,190,.35)'; bctx.stroke();
-
+    bctx.lineWidth = Math.min(1, .4 + k*.06); bctx.strokeStyle = 'rgba(196,214,190,.35)'; bctx.stroke();
     bctx.beginPath(); path(detail.coast);
-    bctx.lineWidth = Math.min(1.2, .5 + k*.06);
-    bctx.strokeStyle = 'rgba(120,168,196,.55)'; bctx.stroke();
+    bctx.lineWidth = Math.min(1.2, .5 + k*.06); bctx.strokeStyle = 'rgba(120,168,196,.55)'; bctx.stroke();
   }
 
-  bctx.save();
-  bctx.beginPath(); path({type:'Sphere'}); bctx.clip();
+  bctx.save(); bctx.beginPath(); path({type:'Sphere'}); bctx.clip();
   const shade = bctx.createRadialGradient(cx - r*.35, cy - r*.4, r*.1, cx, cy, r*1.05);
   shade.addColorStop(0,'rgba(255,246,222,.20)');
   shade.addColorStop(.45,'rgba(0,0,0,0)');
   shade.addColorStop(1,'rgba(0,0,0,.62)');
-  bctx.fillStyle = shade; bctx.fillRect(0,0,W,H);
-  bctx.restore();
+  bctx.fillStyle = shade; bctx.fillRect(0,0,W,H); bctx.restore();
 
   bctx.beginPath(); path({type:'Sphere'});
   bctx.lineWidth = 1; bctx.strokeStyle = 'rgba(150,195,240,.35)'; bctx.stroke();
-
   baseDirty = false;
 }
 
-/* the trail: paw prints along everywhere he has already walked */
+/* paw prints along everywhere he has already been */
 function drawPaw(x, y, angle, s, alpha, side){
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-  ctx.scale(side * s, s);
+  ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.scale(side * s, s);
   ctx.fillStyle = `rgba(255,96,76,${alpha})`;
   ctx.beginPath(); ctx.ellipse(0, .9, 1.5, 1.2, 0, 0, Math.PI*2); ctx.fill();
-  const toes = [[-1.7,-.4],[-.7,-1.5],[.7,-1.5],[1.7,-.4]];
-  for (const [tx,ty] of toes){
+  for (const [tx,ty] of [[-1.7,-.4],[-.7,-1.5],[.7,-1.5],[1.7,-.4]]){
     ctx.beginPath(); ctx.ellipse(tx, ty, .55, .8, 0, 0, Math.PI*2); ctx.fill();
   }
   ctx.beginPath(); ctx.ellipse(-2.4, 1.2, .45, .6, 0, 0, Math.PI*2); ctx.fill();
   ctx.restore();
 }
-
 function drawTrail(){
-  const now = Date.now();
-  const done = travelledKm(now);
-  if (done <= 0) return;
+  const now = slotTime(Date.now());
+  const span = now - TS[0];
+  if (span <= 0) return;
 
   const centre = [-rotation[0], -rotation[1]];
-  const spacing = Math.max(45, Math.min(420, 260 / k));   // km between prints
-  const size = Math.max(1.7, Math.min(4.2, 1.9 * Math.sqrt(k)));
-  const count = Math.min(220, Math.floor(done / spacing));
+  const R = baseScale * k;
+  const size = Math.max(1.5, Math.min(4.2, R / 130));
+  const gapPx = size * 4.4;
+  const step = Math.max(SLOT, span / 1100);
+  const here = projection(pointAt(now));
+  const clear = Math.max(16, size * 5 + 12);
 
-  for (let n = 0; n <= count; n++){
-    const d = done - n * spacing;
-    if (d < 0) break;
-    const c = pointAtKm(d);
+  let last = null, placed = 0, guard = 0;
+  for (let t = now; t >= TS[0] && placed < 110 && guard < 1300; t -= step){
+    guard++;
+    const c = pointAt(t);
     if (d3.geoDistance(c, centre) >= Math.PI/2) continue;
     const p = projection(c);
     if (!p) continue;
+    if (here && Math.hypot(p[0]-here[0], p[1]-here[1]) < clear) continue;
+    if (last && Math.hypot(p[0]-last[0], p[1]-last[1]) < gapPx) continue;
 
-    const ahead = projection(pointAtKm(Math.min(totalKm, d + spacing * .35)));
-    const angle = ahead ? Math.atan2(ahead[1] - p[1], ahead[0] - p[0]) + Math.PI/2 : 0;
-
-    const alpha = Math.max(.12, .75 - n * .012);
-    const side = n % 2 ? 1 : -1;
-    const off = size * 1.3;
-    drawPaw(p[0] + Math.cos(angle) * off * side,
-            p[1] + Math.sin(angle) * off * side,
-            angle, size, alpha, side);
+    const ahead = projection(pointAt(t + step * .4));
+    const angle = ahead ? Math.atan2(ahead[1]-p[1], ahead[0]-p[0]) + Math.PI/2 : 0;
+    const side = placed % 2 ? 1 : -1, off = size * 1.2;
+    drawPaw(p[0] + Math.cos(angle)*off*side, p[1] + Math.sin(angle)*off*side,
+            angle, size, Math.max(.14, .78 - placed*.013), side);
+    last = p; placed++;
   }
 }
 
-function frame(t){
+function frame(ts){
   requestAnimationFrame(frame);
-
-  const slot = slotIndex(Date.now());
-  if (slot !== currentSlot){ currentSlot = slot; lookAtGogo(); paintPanel(); }
+  const now = Date.now();
+  if (slotIndex(now) !== currentSlot){ currentSlot = slotIndex(now); lookAtGogo(); paintPanel(); }
+  else if (hourIndex(now) !== currentHour){ currentHour = hourIndex(now); paintSighting(); }
 
   if (settling && !dragging){
     const dx = target[0] - rotation[0], dy = target[1] - rotation[1];
     rotation[0] += dx * .08; rotation[1] += dy * .08;
     if (Math.abs(dx) < .05 && Math.abs(dy) < .05){ rotation = target.slice(); settling = false; }
-    projection.rotate(rotation);
-    baseDirty = true;
+    projection.rotate(rotation); baseDirty = true;
   }
-
   if (baseDirty) renderBase();
 
   ctx.clearRect(0,0,W,H);
   ctx.drawImage(base, 0, 0, W, H);
   drawTrail();
 
-  const s = positionAt(Date.now());
-  const p = projection([s.lon, s.lat]);
+  const s = positionAt(now), p = projection([s.lon, s.lat]);
   if (p && d3.geoDistance([s.lon,s.lat], [-rotation[0],-rotation[1]]) < Math.PI/2){
-    const pulse = (Math.sin(t/450) + 1) / 2;
-    const r = 20 + pulse * 16;
+    const pulse = (Math.sin(ts/450) + 1) / 2, r = 20 + pulse * 16;
     const halo = ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],r);
     halo.addColorStop(0,'rgba(255,32,32,.55)');
     halo.addColorStop(.4,'rgba(255,32,32,.20)');
     halo.addColorStop(1,'rgba(255,32,32,0)');
     ctx.beginPath(); ctx.arc(p[0],p[1],r,0,Math.PI*2); ctx.fillStyle = halo; ctx.fill();
-
     ctx.beginPath(); ctx.arc(p[0],p[1],4.5,0,Math.PI*2);
     ctx.fillStyle = '#ff2020';
     ctx.shadowColor = 'rgba(255,32,32,.95)'; ctx.shadowBlur = 14 + pulse*12;
@@ -444,7 +727,7 @@ function frame(t){
   }
 }
 
-/* ---------------- input ---------------- */
+/* ================= input ================= */
 d3.select(canvas).call(
   d3.drag()
     .on('start', () => { dragging = true; settling = false; })
@@ -452,8 +735,7 @@ d3.select(canvas).call(
       const s = .25 / Math.sqrt(k);
       rotation[0] += e.dx * s;
       rotation[1] = Math.max(-90, Math.min(90, rotation[1] - e.dy * s));
-      projection.rotate(rotation);
-      baseDirty = true;
+      projection.rotate(rotation); baseDirty = true;
     })
     .on('end', () => { dragging = false; baseDirty = true; })
 );
@@ -462,7 +744,6 @@ canvas.addEventListener('wheel', e => {
   setZoom(k * Math.pow(1.0015, -e.deltaY));
 }, {passive:false});
 
-/* pinch zoom on iOS, and no page zoom on the globe */
 const touchDist = e => Math.hypot(
   e.touches[0].clientX - e.touches[1].clientX,
   e.touches[0].clientY - e.touches[1].clientY);
@@ -481,30 +762,33 @@ document.addEventListener('dblclick', e => e.preventDefault(), {passive:false});
 document.getElementById('in').onclick  = () => { settling = false; setZoom(k*1.4); };
 document.getElementById('out').onclick = () => { settling = false; setZoom(k/1.4); };
 document.getElementById('reset').onclick = () => { setZoom(1); lookAtGogo(); };
+langEn.onclick = () => setLang('en');
+langAr.onclick = () => setLang('ar');
 
-/* ---------------- map data ---------------- */
+/* ================= map data ================= */
 const build = world => {
   const o = world.objects.countries || world.objects.land;
-  return {
-    land: topojson.feature(world, o),
-    borders: topojson.mesh(world, o, (a,b) => a !== b),
-    coast: topojson.mesh(world, o, (a,b) => a === b)
-  };
+  return { land: topojson.feature(world, o),
+           borders: topojson.mesh(world, o, (a,b) => a !== b),
+           coast: topojson.mesh(world, o, (a,b) => a === b) };
 };
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
   .then(w => { lo = build(w); baseDirty = true; })
   .then(() => d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'))
   .then(w => { hi = build(w); baseDirty = true; })
-  .catch(() => { if (!lo) document.querySelector('.hint').textContent = 'Map data unavailable — the tracker is still live.'; });
+  .catch(() => { if (!lo) dragHint.textContent = T().noMap; });
 
-/* ---------------- lifecycle ---------------- */
+/* ================= lifecycle ================= */
 if (window.ResizeObserver) new ResizeObserver(fit).observe(stage);
 window.addEventListener('resize', fit);
 window.addEventListener('orientationchange', () => setTimeout(fit, 250));
 if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
 document.addEventListener('visibilitychange', () => { if (!document.hidden){ fit(); paintPanel(); tickClock(); } });
 
-fit(); paintPanel(); tickClock();
+fit();
+let saved = null;
+try { saved = localStorage.getItem('gogo-lang'); } catch(e){}
+setLang(saved === 'ar' ? 'ar' : 'en');
 setInterval(tickClock, 1000);
 requestAnimationFrame(frame);
 </script>
